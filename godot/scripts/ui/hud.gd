@@ -10,7 +10,7 @@ extends Control
 @onready var p2_outer_bar = $P2Stats/CoreBar/OuterBar
 @onready var p2_inner_bar = $P2Stats/CoreBar/InnerBar
 @onready var p2_kindle_bar = $P2Stats/KindleBar
-@ontml:parameter name="p2_damage_label = $P2Stats/DamageLabel
+@onready var p2_damage_label = $P2Stats/DamageLabel
 
 var player1: StickFighter
 var player2: StickFighter
