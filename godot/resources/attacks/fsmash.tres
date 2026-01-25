@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="AttackData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/systems/attack_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+attack_name = "Forward Smash"
+startup_frames = 14
+active_frames = 3
+recovery_frames = 22
+base_damage = 16.0
+base_knockback = 250.0
+knockback_angle = 45.0
+knockback_scaling = 1.5
+kindle_gain = 12.0
+kindle_cost = 0.0
+hitbox_offset = Vector2(35, -15)
+hitbox_size = Vector2(40, 40)

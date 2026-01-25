@@ -19,13 +19,19 @@ var facing_right: bool = true
 var can_double_jump: bool = false
 var is_fast_falling: bool = false
 var hitstun_frames: int = 0
+var attack_frames: int = 0
+var current_attack: AttackData = null
 
 # Systems
 var core_health: CoreHealth
 var kindle_system: KindleSystem
+var hitbox_manager: HitboxManager
 
 # Input prefix
 var input_prefix: String
+
+# Attack data
+@export var basic_attack: AttackData
 
 signal player_ignited(player_id: int)
 
@@ -39,10 +45,31 @@ func _ready() -> void:
 	add_child(core_health)
 	add_child(kindle_system)
 	
+	# Find or create hitbox manager
+	hitbox_manager = get_tree().get_first_node_in_group("hitbox_manager")
+	if not hitbox_manager:
+		hitbox_manager = HitboxManager.new()
+		hitbox_manager.add_to_group("hitbox_manager")
+		get_tree().root.add_child(hitbox_manager)
+	
+	# Load default attack if not set
+	if not basic_attack:
+		basic_attack = load("res://resources/attacks/jab1.tres")
+	
 	# Connect signals
 	core_health.ignited.connect(_on_ignited)
 
 func _physics_process(delta: float) -> void:
+	# Handle attack frames
+	if attack_frames > 0:
+		attack_frames -= 1
+		if attack_frames <= 0:
+			current_attack = null
+		# Reduced movement during attack
+		velocity.x = move_toward(velocity.x, 0, 20)
+		move_and_slide()
+		return
+	
 	# Handle hitstun
 	if hitstun_frames > 0:
 		hitstun_frames -= 1
@@ -59,6 +86,9 @@ func _physics_process(delta: float) -> void:
 	
 	# Handle movement
 	handle_movement()
+	
+	# Handle attacks
+	handle_attacks()
 	
 	# Move
 	move_and_slide()
@@ -124,6 +154,27 @@ func take_hit(attack: AttackData, attacker_facing_right: bool) -> void:
 	
 	# Set hitstun
 	hitstun_frames = 10 + int(attack.base_damage)
+
+func handle_attacks() -> void:
+	# Basic attack
+	if Input.is_action_just_pressed(input_prefix + "attack") and basic_attack:
+		perform_attack(basic_attack)
+
+func perform_attack(attack: AttackData) -> void:
+	# Check kindle cost
+	if attack.kindle_cost > 0:
+		if not kindle_system.spend_kindle(attack.kindle_cost):
+			return  # Not enough kindle
+	
+	# Set attack state
+	current_attack = attack
+	attack_frames = attack.startup_frames + attack.active_frames + attack.recovery_frames
+	
+	# Activate hitbox after startup frames
+	if hitbox_manager:
+		await get_tree().create_timer(attack.startup_frames / 60.0).timeout
+		if current_attack == attack:  # Still in same attack
+			hitbox_manager.activate_hitbox(self, attack, attack.active_frames)
 
 func _on_ignited() -> void:
 	player_ignited.emit(player_id)
