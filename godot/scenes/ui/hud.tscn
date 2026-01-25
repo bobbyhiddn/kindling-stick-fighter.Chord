@@ -1,0 +1,112 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2wxmk8i5c72g"]
+
+[ext_resource type="Script" path="res://scripts/ui/hud.gd" id="1_hud"]
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hud")
+
+[node name="P1Stats" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 320.0
+offset_bottom = 120.0
+
+[node name="Label" type="Label" parent="P1Stats"]
+layout_mode = 2
+text = "PLAYER 1"
+horizontal_alignment = 1
+
+[node name="CoreBar" type="HBoxContainer" parent="P1Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="P1Stats/CoreBar"]
+layout_mode = 2
+text = "CORE:"
+
+[node name="OuterBar" type="ProgressBar" parent="P1Stats/CoreBar"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+max_value = 50.0
+value = 50.0
+show_percentage = false
+
+[node name="InnerBar" type="ProgressBar" parent="P1Stats/CoreBar"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+max_value = 50.0
+value = 50.0
+show_percentage = false
+
+[node name="KindleBar" type="ProgressBar" parent="P1Stats"]
+layout_mode = 2
+max_value = 100.0
+show_percentage = false
+
+[node name="Label2" type="Label" parent="P1Stats"]
+layout_mode = 2
+text = "KINDLE"
+horizontal_alignment = 1
+
+[node name="DamageLabel" type="Label" parent="P1Stats"]
+layout_mode = 2
+text = "0%"
+horizontal_alignment = 1
+
+[node name="P2Stats" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -320.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 120.0
+grow_horizontal = 0
+
+[node name="Label" type="Label" parent="P2Stats"]
+layout_mode = 2
+text = "PLAYER 2"
+horizontal_alignment = 1
+
+[node name="CoreBar" type="HBoxContainer" parent="P2Stats"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="P2Stats/CoreBar"]
+layout_mode = 2
+text = "CORE:"
+
+[node name="OuterBar" type="ProgressBar" parent="P2Stats/CoreBar"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+max_value = 50.0
+value = 50.0
+show_percentage = false
+
+[node name="InnerBar" type="ProgressBar" parent="P2Stats/CoreBar"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+max_value = 50.0
+value = 50.0
+show_percentage = false
+
+[node name="KindleBar" type="ProgressBar" parent="P2Stats"]
+layout_mode = 2
+max_value = 100.0
+show_percentage = false
+
+[node name="Label2" type="Label" parent="P2Stats"]
+layout_mode = 2
+text = "KINDLE"
+horizontal_alignment = 1
+
+[node name="DamageLabel" type="Label" parent="P2Stats"]
+layout_mode = 2
+text = "0%"
+horizontal_alignment = 1

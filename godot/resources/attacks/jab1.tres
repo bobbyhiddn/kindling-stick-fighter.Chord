@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="AttackData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/systems/attack_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+attack_name = "Jab 1"
+startup_frames = 3
+active_frames = 2
+recovery_frames = 8
+base_damage = 3.0
+base_knockback = 100.0
+knockback_angle = 60.0
+knockback_scaling = 1.0
+kindle_gain = 2.0
+kindle_cost = 0.0
+hitbox_offset = Vector2(25, -15)
+hitbox_size = Vector2(30, 30)
