@@ -135,9 +135,8 @@ func take_hit(attack: AttackData, attacker_facing_right: bool) -> void:
 	# Grant kindle to both players
 	kindle_system.add_kindle(attack.kindle_gain * 0.5)  # Defender gets some
 	
-	# Calculate knockback
-	var kb_system = KnockbackSystem.new()
-	var knockback_force = kb_system.calculate_knockback(
+	# Calculate knockback using static method
+	var knockback_force = KnockbackSystem.calculate_knockback(
 		attack.base_knockback,
 		core_health.total_damage,
 		attack.knockback_scaling,
@@ -149,8 +148,7 @@ func take_hit(attack: AttackData, attacker_facing_right: bool) -> void:
 	if not attacker_facing_right:
 		kb_angle = 180.0 - kb_angle
 	
-	kb_system.apply_knockback(self, knockback_force, kb_angle)
-	kb_system.queue_free()
+	KnockbackSystem.apply_knockback(self, knockback_force, kb_angle)
 	
 	# Set hitstun
 	hitstun_frames = 10 + int(attack.base_damage)
@@ -159,6 +157,8 @@ func handle_attacks() -> void:
 	# Basic attack
 	if Input.is_action_just_pressed(input_prefix + "attack") and basic_attack:
 		perform_attack(basic_attack)
+
+const PHYSICS_FPS: float = 60.0  # Godot's default physics FPS
 
 func perform_attack(attack: AttackData) -> void:
 	# Check kindle cost
@@ -172,7 +172,7 @@ func perform_attack(attack: AttackData) -> void:
 	
 	# Activate hitbox after startup frames
 	if hitbox_manager:
-		await get_tree().create_timer(attack.startup_frames / 60.0).timeout
+		await get_tree().create_timer(attack.startup_frames / PHYSICS_FPS).timeout
 		if current_attack == attack:  # Still in same attack
 			hitbox_manager.activate_hitbox(self, attack, attack.active_frames)
 

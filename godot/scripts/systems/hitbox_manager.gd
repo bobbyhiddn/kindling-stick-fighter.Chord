@@ -47,12 +47,9 @@ func check_hitbox_collision(hitbox: Dictionary) -> void:
 			continue
 		
 		if player is StickFighter:
-			# Simple distance-based collision check
-			var hitbox_pos = owner_fighter.global_position + attack.hitbox_offset
-			if owner_fighter.facing_right:
-				hitbox_pos.x = owner_fighter.global_position.x + attack.hitbox_offset.x
-			else:
-				hitbox_pos.x = owner_fighter.global_position.x - attack.hitbox_offset.x
+			# Calculate hitbox position with facing direction
+			var hitbox_x = attack.hitbox_offset.x if owner_fighter.facing_right else -attack.hitbox_offset.x
+			var hitbox_pos = owner_fighter.global_position + Vector2(hitbox_x, attack.hitbox_offset.y)
 			
 			var distance = hitbox_pos.distance_to(player.global_position)
 			var hit_range = (attack.hitbox_size.x + attack.hitbox_size.y) / 2.0

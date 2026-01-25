@@ -4,7 +4,7 @@ extends Node
 ## Knockback calculation system
 ## Uses percentage-based scaling with Inner Core multiplier
 
-func calculate_knockback(
+static func calculate_knockback(
 	base_knockback: float,
 	total_damage: float,
 	kb_scaling: float,
@@ -15,7 +15,7 @@ func calculate_knockback(
 	var scaled_kb = (base_knockback + damage_kb) * kb_multiplier
 	return scaled_kb * (1.0 / weight_modifier)
 
-func apply_knockback(
+static func apply_knockback(
 	body: CharacterBody2D,
 	knockback_force: float,
 	angle_degrees: float
