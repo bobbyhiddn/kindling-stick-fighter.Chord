@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://cpj6yqmuwgpim"]
+
+[ext_resource type="PackedScene" uid="uid://cq8y5lvquhsqo" path="res://scenes/stages/hearth.tscn" id="1_stage"]
+[ext_resource type="PackedScene" uid="uid://bb2vkqf2qqt2y" path="res://scenes/characters/stick_fighter.tscn" id="2_player"]
+[ext_resource type="PackedScene" uid="uid://d2wxmk8i5c72g" path="res://scenes/ui/hud.tscn" id="3_hud"]
+[ext_resource type="Script" path="res://scripts/core/game_manager.gd" id="4_manager"]
+
+[node name="Main" type="Node2D"]
+
+[node name="Hearth" parent="." instance=ExtResource("1_stage")]
+
+[node name="Player1" parent="." instance=ExtResource("2_player")]
+position = Vector2(-200, 200)
+player_id = 1
+
+[node name="Player2" parent="." instance=ExtResource("2_player")]
+position = Vector2(200, 200)
+player_id = 2
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("4_manager")
+
+[node name="HUD" parent="." instance=ExtResource("3_hud")]
+layer = 10
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.5, 1.5)

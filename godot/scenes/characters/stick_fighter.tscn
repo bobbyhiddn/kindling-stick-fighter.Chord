@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=3 uid="uid://bb2vkqf2qqt2y"]
+
+[ext_resource type="Script" path="res://scripts/characters/stick_fighter.gd" id="1_stick"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(20, 60)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2"]
+size = Vector2(30, 30)
+
+[node name="StickFighter" type="CharacterBody2D" groups=["players"]]
+script = ExtResource("1_stick")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1")
+
+[node name="StickBody" type="Node2D" parent="."]
+
+[node name="Head" type="Polygon2D" parent="StickBody"]
+color = Color(0.9, 0.9, 0.9, 1)
+polygon = PackedVector2Array(0, -40, 5, -35, 5, -25, -5, -25, -5, -35)
+
+[node name="Torso" type="Line2D" parent="StickBody"]
+points = PackedVector2Array(0, -25, 0, 10)
+width = 4.0
+default_color = Color(0.9, 0.9, 0.9, 1)
+
+[node name="LeftArm" type="Line2D" parent="StickBody"]
+points = PackedVector2Array(0, -15, -15, 0)
+width = 3.0
+default_color = Color(0.9, 0.9, 0.9, 1)
+
+[node name="RightArm" type="Line2D" parent="StickBody"]
+points = PackedVector2Array(0, -15, 15, 0)
+width = 3.0
+default_color = Color(0.9, 0.9, 0.9, 1)
+
+[node name="LeftLeg" type="Line2D" parent="StickBody"]
+points = PackedVector2Array(0, 10, -10, 30)
+width = 3.0
+default_color = Color(0.9, 0.9, 0.9, 1)
+
+[node name="RightLeg" type="Line2D" parent="StickBody"]
+points = PackedVector2Array(0, 10, 10, 30)
+width = 3.0
+default_color = Color(0.9, 0.9, 0.9, 1)
+
+[node name="HitboxPivot" type="Node2D" parent="."]
+
+[node name="Hitbox" type="Area2D" parent="HitboxPivot"]
+collision_layer = 2
+collision_mask = 1
+
+[node name="HitboxShape" type="CollisionShape2D" parent="HitboxPivot/Hitbox"]
+position = Vector2(25, -15)
+shape = SubResource("RectangleShape2D_2")
+disabled = true

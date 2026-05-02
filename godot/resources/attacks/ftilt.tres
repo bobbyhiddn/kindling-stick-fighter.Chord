@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="AttackData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/systems/attack_data.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+attack_name = "Forward Tilt"
+startup_frames = 7
+active_frames = 4
+recovery_frames = 14
+base_damage = 9.0
+base_knockback = 150.0
+knockback_angle = 40.0
+knockback_scaling = 1.2
+kindle_gain = 6.0
+kindle_cost = 0.0
+hitbox_offset = Vector2(30, -15)
+hitbox_size = Vector2(35, 35)
